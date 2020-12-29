@@ -1,7 +1,7 @@
 const axios = require('axios');
-// https = require('https');
 
-const url = 'http://api.weatherstack.com/current?access_key=6b476a9e41424344bda8f8a777b2414c&query=auckland';
+const weatherUrl = 'http://api.weatherstack.com/current?access_key=6b476a9e41424344bda8f8a777b2414c&query=auckland'
+const GeoLocationUrl = `https://us1.locationiq.com/v1/search.php?key=<Your_API_Access_Token>&q=skytower&format=json`
 
 class Reqs {
     gets (url) {
