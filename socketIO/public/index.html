@@ -49,5 +49,11 @@
       <!-- Copied from Socket.IO, not original CSS or HTML -->
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
+    <!-- Load the socket.io client -->
+    <script src=/socket.io/socket.io.js></script>
+    <script>
+      // Defaults to the default address that serves the page e.g. -> io(*:3000)
+      var socket = io();
+    </script>
   </body>
 </html>
