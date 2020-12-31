@@ -51,9 +51,28 @@
     </form>
     <!-- Load the socket.io client -->
     <script src=/socket.io/socket.io.js></script>
+    <!-- Load JQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
-      // Defaults to the default address that serves the page e.g. -> io(*:3000)
-      var socket = io();
-    </script>
+        $(function () {
+            // Defaults to the default address that serves the page e.g. -> io(*:3000)
+            var socket = io();
+
+            // on submision of form
+            $('form').submit(function(e) {
+            // prevents page reloading
+            e.preventDefault(); 
+            // emit a chat message, and send the form value
+            socket.emit('chat message', $('#m').val());
+            // reset the form value
+            $('#m').val('');
+            return false;
+            });
+            // on receive a 'chat message', append the message to the message list
+            socket.on('chat message', function(msg){
+                $('#messages').append($('<li>').text(msg));
+            });
+        });
+</script>
   </body>
 </html>

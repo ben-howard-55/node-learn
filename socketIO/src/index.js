@@ -24,8 +24,20 @@ app.get("", (req, res) => {
 });
 
 // listen for incoming sockets using `connection`, this will be called when a client tries to connect
-io.on("connection", () => {
+io.on("connection", (socket) => {
   console.log("A user connected");
+
+  // listen for a chat message, and print the message value
+  socket.on("chat message", (msg) => {
+    console.log("message: " + msg);
+    // emit to all connected clients the message
+    io.emit("chat message", msg);
+  });
+
+  // listen for disconnect of a socket.
+  socket.on("disconnect", () => {
+    console.log("A user disconnected");
+  });
 });
 
 // make server listen to port 3000
