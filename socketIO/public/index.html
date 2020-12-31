@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat - copied from socket.io</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font: 13px Helvetica, Arial;
+      }
+      form {
+        background: #000;
+        padding: 3px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+      form input {
+        border: 0;
+        padding: 10px;
+        width: 90%;
+        margin-right: 0.5%;
+      }
+      form button {
+        width: 9%;
+        background: rgb(130, 224, 255);
+        border: none;
+        padding: 10px;
+      }
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #messages li {
+        padding: 5px 10px;
+      }
+      #messages li:nth-child(odd) {
+        background: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form action="">
+      <!-- Copied from Socket.IO, not original CSS or HTML -->
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <!-- Load the socket.io client -->
+    <script src=/socket.io/socket.io.js></script>
+    <!-- Load JQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function () {
+            // Defaults to the default address that serves the page e.g. -> io(*:3000)
+            var socket = io();
+
+            // on submision of form
+            $('form').submit(function(e) {
+            // prevents page reloading
+            e.preventDefault(); 
+            // emit a chat message, and send the form value
+            socket.emit('chat message', $('#m').val());
+            // reset the form value
+            $('#m').val('');
+            return false;
+            });
+            // on receive a 'chat message', append the message to the message list
+            socket.on('chat message', function(msg){
+                $('#messages').append($('<li>').text(msg));
+            });
+        });
+</script>
+  </body>
+</html>
